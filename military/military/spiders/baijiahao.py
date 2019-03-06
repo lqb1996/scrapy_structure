@@ -13,8 +13,10 @@ class BaijiahaoSpider(scrapy.Spider):
 
     def parse(self, response):
         # url_list = list(set([url for url in response.xpath('//a/@href').extract() if url.startswith('https://www.baidu.com')]))
-        print(response.xpath("//div[@id='content_left']//div//div[@class='result']").extract())
-        # url_list = list(set([url for url in response.xpath('//div/@[id=content_left]//div//div@[class=result]').extract()]))
+        result_list = response.xpath("//div[@id='content_left']//div//div[@class='result']")
+        url_list = list([url.xpath(".//h3[@class='c-title']//a/@href").extract() for url in result_list])
+        name_list = list([name.xpath(".//h3[@class='c-title']//a/text()").extract() for name in result_list])
+        print(name_list)
         # self.url_list = url_list
         # for url in self.url_list:
         #     print(url)
