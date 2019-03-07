@@ -4,10 +4,10 @@ from military.items import MilitaryItem
 
 class BaijiahaoSpider(scrapy.Spider):
     name = 'baijiahao'
-    allowed_domains = ['www.baidu.com']
+    allowed_domains = ['www.baidu.com', 'baijiahao.baidu.com']
     def __init__(self, parms=None, *args, **kwargs):
         super(BaijiahaoSpider, self).__init__(*args, **kwargs)
-        self.start_urls = ['https://www.baidu.com/s?ie=utf-8&cl=2&rtt=1&bsst=1&tn=news&word=%s&rsv_sug3=5&rsv_sug4=53&rsv_sug1=4&rsv_sug2=0&inputT=3659&x_bfe_rqs=03E80&x_bfe_tjscore=0.000923&tngroupname=organic_news&pn=0' % parms]
+        self.start_urls = ['https://www.baidu.com/s?rtt=1&bsst=1&cl=2&tn=news&word=%s' % parms]
 
     # start_urls = ['https://baijiahao.baidu.com/s?id=1627130418408807094&wfr=spider&for=pc']
 
@@ -16,13 +16,25 @@ class BaijiahaoSpider(scrapy.Spider):
         result_list = response.xpath("//div[@id='content_left']//div//div[@class='result']")
         for re in result_list:
             mil_item = MilitaryItem()
-            mil_item['title'] = re.xpath(".//h3[@class='c-title']//a/text()").extract()
             mil_item['url'] = re.xpath(".//h3[@class='c-title']//a/@href").extract()
-            mil_item['source_time'] = re.xpath(".//div[@class='c-summary c-row ']//p[@class='c-author']/text()").extract()
-            mil_item['introduce'] = re.xpath(".//div[@class='c-summary c-row ']/text()").extract()
-        print(mil_item)
-        # self.url_list = url_list
-        # for url in self.url_list:
-        #     print(url)
-            # yield scrapy.http(url, callback=self.parse_item)
+            for url in mil_item['url']:
+                request = scrapy.Request(url, callback=self.parse_detail)
+                request.meta['item'] = mil_item
+                yield request
+            mil_item['introduce'] = re.xpath(".//div[@class='c-summary c-row ']//text()").extract()
+            yield mil_item
+        next_page = response.xpath("//div[@id='wrapper']//p[@id='page']//a[contains(text(),'下一页')]/@href").extract_first()
+        # if next_page:
+        #     next_page = next_page[0]
+        #     yield scrapy.Request("https://www.baidu.com"+next_page, callback=self.parse)
+
+    def parse_detail(self, response):
         # print(response.text)
+        mil_item = response.meta['item']
+        mil_item['title'] = response.xpath("//div[@id='article']//div[@class='article-title']//h2/text()").extract_first()
+        mil_item['source'] = response.xpath("//div[@id='article']//div[@class='article-desc clearfix']//div[@class='author-txt']//p[@class='author-name']/text()").extract_first()
+        mil_item['date'] = response.xpath("//div[@id='article']//div[@class='article-desc clearfix']//div[@class='author-txt']//div[@class='article-source article-source-bjh']//span[@class='date']/text()").extract_first()
+        mil_item['time'] = response.xpath("//div[@id='article']//div[@class='article-desc clearfix']//div[@class='author-txt']//div[@class='article-source article-source-bjh']//span[@class='time']/text()").extract_first()
+        mil_item['content'] = response.xpath("//div[@id='article']//div[@class='article-content']//text()").extract()
+        print(mil_item)
+        yield mil_item
