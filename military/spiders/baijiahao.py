@@ -21,12 +21,10 @@ class BaijiahaoSpider(scrapy.Spider):
                 request = scrapy.Request(url, callback=self.parse_detail)
                 request.meta['item'] = mil_item
                 yield request
-            mil_item['introduce'] = re.xpath(".//div[@class='c-summary c-row ']//text()").extract()
-            yield mil_item
         next_page = response.xpath("//div[@id='wrapper']//p[@id='page']//a[contains(text(),'下一页')]/@href").extract_first()
-        # if next_page:
-        #     next_page = next_page[0]
-        #     yield scrapy.Request("https://www.baidu.com"+next_page, callback=self.parse)
+        if next_page:
+            # next_page = next_page[0]
+            yield scrapy.Request("https://www.baidu.com"+next_page, callback=self.parse)
 
     def parse_detail(self, response):
         # print(response.text)
@@ -36,5 +34,4 @@ class BaijiahaoSpider(scrapy.Spider):
         mil_item['date'] = response.xpath("//div[@id='article']//div[@class='article-desc clearfix']//div[@class='author-txt']//div[@class='article-source article-source-bjh']//span[@class='date']/text()").extract_first()
         mil_item['time'] = response.xpath("//div[@id='article']//div[@class='article-desc clearfix']//div[@class='author-txt']//div[@class='article-source article-source-bjh']//span[@class='time']/text()").extract_first()
         mil_item['content'] = response.xpath("//div[@id='article']//div[@class='article-content']//text()").extract()
-        print(mil_item)
         yield mil_item
