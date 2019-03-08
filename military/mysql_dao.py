@@ -6,7 +6,7 @@ reserve_list = ['Call','Long','Engines','Year','From','To']
 ip_host = '192.168.12.148'
 db_user = 'root'
 db_passwd = 'mininglamp'
-which_db = 'kgvisual'
+which_db = 'kg_word'
 
 
 def check_reserve(raw):
