@@ -5,9 +5,9 @@ import jieba
 import sys
 # from proxy import *
 from bs4 import BeautifulSoup
-from mysql_dao import find_line, insert_field, update_field,\
+from military.mysql_dao import find_line, insert_field, update_field,\
     fetch_row
-from proxy_py import *
+from military.proxy_py import *
 # sys.path.append(r'\script\DAO')
 # sys.path.append(r'/')
 

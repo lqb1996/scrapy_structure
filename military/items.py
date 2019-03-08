@@ -16,5 +16,6 @@ class MilitaryItem(scrapy.Item):
     source = scrapy.Field()
     date = scrapy.Field()
     time = scrapy.Field()
+    object = scrapy.Field()
     # introduce = scrapy.Field()
     content = scrapy.Field()

@@ -8,18 +8,20 @@ db_user = 'root'
 db_passwd = 'mininglamp'
 which_db = 'kgvisual'
 
+
 def check_reserve(raw):
     if raw in reserve_list:
         raw = 'r_'+raw
     return raw
 
-def fetch_row(table_name, row_name_list, input_db = which_db, local_key = False, local_value = False):
+
+def fetch_row(table_name, row_name_list, input_db=which_db, local_key=False, local_value=False):
     conn = MySQLdb.connect(
-        host = ip_host,
-        port = 3306,
-        user = db_user,
-        passwd = db_passwd,
-        db = input_db,
+        host=ip_host,
+        port=3306,
+        user=db_user,
+        passwd=db_passwd,
+        db=input_db,
         charset="utf8"
     )
     cur = conn.cursor()
@@ -29,7 +31,7 @@ def fetch_row(table_name, row_name_list, input_db = which_db, local_key = False,
     else:
         for i in row_name_list:
             sql += i + "," if i != row_name_list[-1] else i
-    sql += " from " + table_name + " where " + local_key +' = '+str(local_value) if local_key != False else " from " + table_name
+    sql += " from " + table_name + " where " + local_key + ' = ' +str(local_value) if local_key != False else " from " + table_name
     cur.execute(sql)
     result_list = []
     for row in cur.fetchall():       
