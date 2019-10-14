@@ -2,7 +2,7 @@
 import MySQLdb
 from dataclasses import field
 
-reserve_list = ['Call','Long','Engines','Year','From','To']
+reserve_list = ['Call', 'Long', 'Engines', 'Year', 'From', 'To']
 ip_host = '192.168.12.148'
 db_user = 'root'
 db_passwd = 'mininglamp'
