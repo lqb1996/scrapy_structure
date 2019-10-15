@@ -22,17 +22,15 @@ class MilitaryPipeline(object):
         return item
 
 
-# 继承里系统中下载图片的功能
+# 继承ImagesPipeline中下载图片的功能
 class USNIPipeline(ImagesPipeline):
-    def process_item(self, item, spider):
-        # print("spider" + spider)
-        # print(item)
-        return item
+    # def process_item(self, item, spider):
+    #     return item
 
     def get_media_requests(self, item, info):
-        yield scrapy.Request(url=item['src'][0], meta={'item': item})
+        yield scrapy.Request(url=item['image'][0], meta={'item': item})
 
-    # 设置图片的路径为  类型名称/url地址
     def file_path(self, request, response=None, info=None):
         item = request.meta['item']
-        image_name = item['src'][0].split('/')[-1]
+        image_name = item['time']
+        return image_name

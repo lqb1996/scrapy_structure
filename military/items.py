@@ -27,6 +27,5 @@ class MilitaryItem(scrapy.Item):
     title = scrapy.Field()
     url = scrapy.Field()
     time = scrapy.Field()
-    image_url = scrapy.Field()
     content = scrapy.Field()
-    image_path = scrapy.Field()
+    image = scrapy.Field()
