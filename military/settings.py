@@ -14,7 +14,6 @@ BOT_NAME = 'military'
 SPIDER_MODULES = ['military.spiders']
 NEWSPIDER_MODULE = 'military.spiders'
 
-
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 # USER_AGENT = 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.119 Mobile Safari/537.36'
 USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.119 Safari/537.36'
@@ -70,6 +69,7 @@ ITEM_PIPELINES = {
    'military.pipelines.USNIPipeline': 300,
 }
 
+IMAGES_STORE = 'USNI_images'
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html
 #AUTOTHROTTLE_ENABLED = True

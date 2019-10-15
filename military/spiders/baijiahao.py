@@ -2,6 +2,7 @@
 import scrapy
 from military.items import MilitaryItem
 
+
 class BaijiahaoSpider(scrapy.Spider):
     name = 'baijiahao'
     allowed_domains = ['www.baidu.com', 'baijiahao.baidu.com']

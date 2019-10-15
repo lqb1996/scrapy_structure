@@ -29,3 +29,4 @@ class MilitaryItem(scrapy.Item):
     time = scrapy.Field()
     image_url = scrapy.Field()
     content = scrapy.Field()
+    image_path = scrapy.Field()

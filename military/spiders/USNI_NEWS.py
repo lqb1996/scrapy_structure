@@ -19,7 +19,7 @@ class UsniNewsSpider(scrapy.Spider):
             request.meta['item'] = mil_item
             yield request
 
-        #拿到下一页
+        # 拿到下一页
         next_page = response.xpath(
             "//div[@id='bodyMain']//section//div[@id='content']//div[@class='nevigation']//ol//li//a[@class='next']/@href").extract_first()
         if next_page:
@@ -29,4 +29,8 @@ class UsniNewsSpider(scrapy.Spider):
 
     def parse_detail(self, response):
         mil_item = response.meta['item']
+        mil_item['image_url'] = response.xpath("//div[@id='content']//article//div[@class='entry-content']//img/@src").extract_first()
+        mil_item['image'] = [mil_item['image_url']]
+        mil_item['content'] = response.xpath("//div[@id='content']//article").extract()
+        # print(mil_item['image_url'])
         yield mil_item
