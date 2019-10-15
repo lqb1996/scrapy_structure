@@ -66,7 +66,8 @@ DOWNLOAD_DELAY = 0.5
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'military.pipelines.MilitaryPipeline': 300,
+   # 'military.pipelines.MilitaryPipeline': 300,
+   'military.pipelines.USNIPipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

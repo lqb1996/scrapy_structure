@@ -15,3 +15,9 @@ class MilitaryPipeline(object):
         except Exception as e:
             print(value)
         return item
+
+class USNIPipeline(object):
+    def process_item(self, item, spider):
+        print("spider" + spider)
+        print("item" + item)
+        return item
