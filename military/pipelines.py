@@ -6,7 +6,8 @@
 # See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 import military.mysql_dao as py2db
 # ImagesPipeline 为系统中下载图片的管道
-import scrapy
+import scrapy, os, time
+from scrapy.utils.project import get_project_settings
 from scrapy.pipelines.images import ImagesPipeline
 
 
@@ -39,5 +40,15 @@ class USNIPipeline(ImagesPipeline):
 # 处理网页信息
 class USNIPagesPipeline(object):
     def process_item(self, item, spider):
-        print(item)
+        settings = get_project_settings()
+        store_dir = os.path.join(os.getcwd(), settings.get('PAGES_STORE'))
+        if not os.path.exists(store_dir):
+            os.makedirs(store_dir)
+        t = time.strptime(item['time'], "%B %d, %Y %I:%M %p")
+        store_name = time.strftime("%Y-%m-%d %H:%M:%S", t) + '.txt'
+        with open(os.path.join(store_dir, store_name), 'a+') as f:
+            f.write('title:' + item['title'] + '\n')
+            f.write('time:' + item['time'] + '\n')
+            f.write('url:' + item['url'] + '\n')
+            f.write(item['content'])
         return item

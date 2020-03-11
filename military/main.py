@@ -8,5 +8,6 @@ import military.mysql_dao as py2db
 #         cmdline.execute(('scrapy crawl baijiahao -a parms=%s' % simple_obj.replace(' ', '')).split())
 
 #爬取USNI
-cmdline.execute('scrapy crawl USNI_NEWS'.split())
+cmdline.execute('scrapy crawl USNI_PAGES'.split())
+# cmdline.execute('scrapy crawl USNI_NEWS'.split())
 # cmdline.execute('scrapy crawl baijiahao'.split())

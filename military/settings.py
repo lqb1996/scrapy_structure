@@ -66,10 +66,12 @@ DOWNLOAD_DELAY = 0.5
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
    # 'military.pipelines.MilitaryPipeline': 300,
-   'military.pipelines.USNIPipeline': 300,
+   # 'military.pipelines.USNIPipeline': 300,
+   'military.pipelines.USNIPagesPipeline': 300,
 }
 
-IMAGES_STORE = 'USNI_pages'
+IMAGES_STORE = 'USNI_images'
+PAGES_STORE = 'USNI_pages'
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html
 #AUTOTHROTTLE_ENABLED = True

@@ -4,7 +4,7 @@ from military.items import MilitaryItem
 
 
 class UsniNewsSpider(scrapy.Spider):
-    name = 'USNI_NEWS'
+    name = 'USNI_PAGES'
     allowed_domains = ['news.usni.org']
     start_urls = ['https://news.usni.org/category/fleet-tracker']
 
@@ -27,5 +27,5 @@ class UsniNewsSpider(scrapy.Spider):
 
     def parse_detail(self, response):
         mil_item = response.meta['item']
-        mil_item['image'] = response.xpath("//div[@id='content']//article//div[@class='entry-content']").extract_first()
+        mil_item['content'] = response.xpath("//div[@id='content']//article//div[@class='entry-content']").extract_first()
         yield mil_item
