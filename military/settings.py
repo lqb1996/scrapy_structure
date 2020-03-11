@@ -69,7 +69,7 @@ ITEM_PIPELINES = {
    'military.pipelines.USNIPipeline': 300,
 }
 
-IMAGES_STORE = 'USNI_images'
+IMAGES_STORE = 'USNI_pages'
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html
 #AUTOTHROTTLE_ENABLED = True

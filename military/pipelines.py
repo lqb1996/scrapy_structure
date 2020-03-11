@@ -34,3 +34,10 @@ class USNIPipeline(ImagesPipeline):
         item = request.meta['item']
         image_name = item['time']
         return image_name
+
+
+# 处理网页信息
+class USNIPagesPipeline(object):
+    def process_item(self, item, spider):
+        print(item)
+        return item
